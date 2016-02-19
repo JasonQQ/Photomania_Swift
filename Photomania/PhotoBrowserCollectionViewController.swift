@@ -12,6 +12,7 @@ import Alamofire
 class PhotoBrowserCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var photos = NSMutableOrderedSet()
     
+    let imageCache = NSCache()
     let refreshControl = UIRefreshControl()
     
     var populatingPhotos = false
@@ -45,16 +46,34 @@ class PhotoBrowserCollectionViewController: UICollectionViewController, UICollec
         
         let imageURL = (photos.objectAtIndex(indexPath.row) as! PhotoInfo).url
         
-        cell.imageView.image = nil
         cell.request?.cancel()
         
-        Alamofire.request(.GET, imageURL)
-            .response {
+        if let image = self.imageCache.objectForKey(imageURL) as? UIImage {
+            cell.imageView.image = image
+        } else {
+            cell.imageView.image = nil
+            cell.request = Alamofire.request(.GET, imageURL).validate(contentType: ["image/*"]).responseData() {
                 response in
                 
-                let data = response.2
-                let image = UIImage(data:data!)
-                cell.imageView.image = image
+                switch response.result {
+                case .Success:
+                    
+                    let data = response.result.value
+                    let image = UIImage(data:data!)
+                    
+                    if image != nil {
+                        self.imageCache.setObject(image!, forKey: response.request!.URLString)
+                        
+                        cell.imageView.image = image
+                    }
+                case .Failure(let error):
+                    print(error)
+                    /*
+                    If the cell went off-screen before the image was downloaded, we cancel it and
+                    an NSURLErrorDomain (-999: cancelled) is returned. This is a normal behavior.
+                    */
+                }
+            }
         }
         
         return cell
@@ -130,11 +149,11 @@ class PhotoBrowserCollectionViewController: UICollectionViewController, UICollec
                     }
                     
                     let lastItem = self.photos.count
-
+                    
                     self.photos.addObjectsFromArray(photoInfos)
-
+                    
                     let indexPaths = (lastItem..<self.photos.count).map { NSIndexPath(forItem: $0, inSection: 0) }
-
+                    
                     dispatch_async(dispatch_get_main_queue()) {
                         self.collectionView!.insertItemsAtIndexPaths(indexPaths)
                     }
@@ -150,7 +169,16 @@ class PhotoBrowserCollectionViewController: UICollectionViewController, UICollec
     }
     
     func handleRefresh() {
+        refreshControl.beginRefreshing()
         
+        self.photos.removeAllObjects()
+        self.currentPage = 1
+        
+        self.collectionView!.reloadData()
+        
+        refreshControl.endRefreshing()
+        
+        populatePhotos()
     }
 }
 

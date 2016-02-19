@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0462A94E1C76F3CD0009D5E6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0462A94D1C76F3CD0009D5E6 /* README.md */; };
 		04CEEFDE1C7328AD00A835C6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04CEEFD11C73285400A835C6 /* Alamofire.framework */; };
 		04CEEFDF1C7328AD00A835C6 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04CEEFD11C73285400A835C6 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		22056D1019AA62C900F7A88B /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22056D0F19AA62C900F7A88B /* PhotoViewerViewController.swift */; };
@@ -102,6 +103,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0462A94D1C76F3CD0009D5E6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		04CEEFC61C73285300A835C6 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		22056D0F19AA62C900F7A88B /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
 		22056D1119AB16C100F7A88B /* PhotoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				22F2B00F19A5C39900939296 /* Info.plist */,
+				0462A94D1C76F3CD0009D5E6 /* README.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				22056D1019AA62C900F7A88B /* PhotoViewerViewController.swift in Sources */,
 				22A9A53319AB38B7004287D2 /* PhotoCommentsViewController.swift in Sources */,
 				22C66D8919B512BF00B72DCF /* DownloadedPhotoBrowserCollectionViewController.swift in Sources */,
+				0462A94E1C76F3CD0009D5E6 /* README.md in Sources */,
 				22F2B01119A5C39900939296 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
